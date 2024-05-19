@@ -1,2 +1,4 @@
 /.idea/
 /BirnaloniaSystem.iml
+/target/
+/dependency-reduced-pom.xml
