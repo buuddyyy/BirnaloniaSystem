@@ -1,0 +1,45 @@
+services:
+  minecraftpaper:
+    image: phyremaster/papermc
+    volumes:
+      - ./server-data:/papermc
+    ports:
+      - 25565:25565
+    environment:
+      - EULA=true
+      - MC_VERSION=1.20.6
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    networks:
+      - minecraftnetwork
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpw
+      - MYSQL_DATABASE=birnalonia
+      - MYSQL_USER=birnalonia_user
+      - MYSQL_PASSWORD=birnalonia_pw
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - minecraftnetwork
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITARY: 1
+    ports:
+      - 8080:80
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    networks:
+      - minecraftnetwork
+
+networks:
+  minecraftnetwork:
+    external: false

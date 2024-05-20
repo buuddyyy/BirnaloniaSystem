@@ -4,20 +4,20 @@ import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerJoinListener implements Listener {
+public class PlayerQuitListener implements Listener {
 
     private final BirnaloniaSystemPlugin plugin;
 
-    public PlayerJoinListener(BirnaloniaSystemPlugin plugin) {
+    public PlayerQuitListener(BirnaloniaSystemPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         final Player p = event.getPlayer();
-        plugin.getPlayerHandler().handleJoin(p);
+        plugin.getPlayerHandler().handleQuit(p);
     }
 
 }

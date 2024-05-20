@@ -34,6 +34,9 @@ public final class HomeEntity {
         this.setLocation(location);
     }
 
+    public HomeEntity() {
+    }
+
     public int getId() {
         return id;
     }

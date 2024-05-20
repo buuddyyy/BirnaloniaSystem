@@ -5,7 +5,6 @@ import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.Map;
@@ -37,12 +36,13 @@ public final class MainConfig {
         defaultsMap.put("general.tablist.header", "&c&lBirnalonia");
         defaultsMap.put("general.tablist.footer", "&7Wir haben spaß!");
         defaultsMap.put("sql.driverClass", "com.mysql.jdbc.Driver");
-        defaultsMap.put("sql.url", "jdbc:mysql://localhost:3306:/yourdatabase");
+        defaultsMap.put("sql.url", "jdbc:mysql://localhost:3306/yourdatabase");
         defaultsMap.put("sql.username", "yourusername");
         defaultsMap.put("sql.password", "yourpassword");
-        defaultsMap.put("sql.dialect", "org.hibernate.dialect.MySQLDialect");
         defaultsMap.put("sql.showSql", true);
+        defaultsMap.put("sql.formatSql", true);
         this.configuration.addDefaults(defaultsMap);
+        this.configuration.options().copyDefaults(true);
         this.save();
     }
 

@@ -2,3 +2,5 @@
 /BirnaloniaSystem.iml
 /target/
 /dependency-reduced-pom.xml
+/docker/server-data/
+/docker/mysql-data/
