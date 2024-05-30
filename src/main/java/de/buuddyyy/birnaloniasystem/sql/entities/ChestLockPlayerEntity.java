@@ -2,6 +2,7 @@ package de.buuddyyy.birnaloniasystem.sql.entities;
 
 import de.buuddyyy.birnaloniasystem.managers.ChestLockManager;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(name = ChestLockManager.CHESTLOCKS_PLAYERS_TABLE_NAME, uniqueConstraints = {
@@ -11,14 +12,17 @@ public class ChestLockPlayerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private int id;
 
     @JoinColumn(name = "playerId", referencedColumnName = "id")
     @ManyToOne(targetEntity = PlayerEntity.class, optional = false)
+    @Getter
     private PlayerEntity playerEntity;
 
     @JoinColumn(name = "chestLockId", referencedColumnName = "id")
     @ManyToOne(targetEntity = ChestLockEntity.class, optional = false)
+    @Getter
     private ChestLockEntity chestLockEntity;
 
     public ChestLockPlayerEntity(PlayerEntity playerEntity, ChestLockEntity chestLockEntity) {
@@ -29,15 +33,4 @@ public class ChestLockPlayerEntity {
     public ChestLockPlayerEntity() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public PlayerEntity getPlayerEntity() {
-        return playerEntity;
-    }
-
-    public ChestLockEntity getChestLockEntity() {
-        return chestLockEntity;
-    }
 }

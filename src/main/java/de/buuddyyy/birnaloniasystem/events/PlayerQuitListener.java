@@ -18,6 +18,7 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         final Player p = event.getPlayer();
         plugin.getPlayerHandler().handleQuit(p);
+        plugin.getSkipNightHandler().handlePlayerQuit(p);
     }
 
 }

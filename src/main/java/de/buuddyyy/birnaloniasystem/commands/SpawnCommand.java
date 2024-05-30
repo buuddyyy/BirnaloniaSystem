@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class SpawnCommand implements CommandExecutor {
 
@@ -16,7 +17,12 @@ public class SpawnCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        return false;
+        if (!(commandSender instanceof Player)) {
+            return false;
+        }
+        final Player p = (Player) commandSender;
+        this.plugin.getTeleportHandler().teleportPlayerToSpawn(p);
+        return true;
     }
 
 }

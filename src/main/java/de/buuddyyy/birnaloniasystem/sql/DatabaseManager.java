@@ -2,13 +2,13 @@ package de.buuddyyy.birnaloniasystem.sql;
 
 import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
 import de.buuddyyy.birnaloniasystem.config.MainConfig;
-import de.buuddyyy.birnaloniasystem.sql.converters.UUIDConverter;
 import de.buuddyyy.birnaloniasystem.sql.entities.ChestLockEntity;
 import de.buuddyyy.birnaloniasystem.sql.entities.ChestLockPlayerEntity;
 import de.buuddyyy.birnaloniasystem.sql.entities.HomeEntity;
 import de.buuddyyy.birnaloniasystem.sql.entities.PlayerEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -23,7 +23,7 @@ import java.util.Map;
 public final class DatabaseManager implements AutoCloseable {
 
     private SessionFactory sessionFactory;
-    private Session session;
+    @Getter private Session session;
     private CriteriaBuilder criteriaBuilder;
 
     private BirnaloniaSystemPlugin plugin;
@@ -85,24 +85,35 @@ public final class DatabaseManager implements AutoCloseable {
 
     public void insertEntity(Object entityObject) {
         Transaction transaction = this.session.beginTransaction();
-        this.session.persist(entityObject);
-        transaction.commit();
+        try {
+            this.session.persist(entityObject);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        }
     }
 
     public void updateEntity(Object entityObject) {
         Transaction transaction = this.session.beginTransaction();
-        this.session.update(entityObject);
-        transaction.commit();
+        try {
+            this.session.update(entityObject);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        }
     }
 
     public void deleteEntity(Object entityObject) {
         Transaction transaction = this.session.beginTransaction();
-        this.session.delete(entityObject);
-        transaction.commit();
-    }
-
-    public Session getSession() {
-        return session;
+        try {
+            this.session.delete(entityObject);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        }
     }
 
     @Override

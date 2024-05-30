@@ -12,3 +12,5 @@ commands:
   sethome:
   setspawn:
   spawn:
+  tpaccept:
+  tpa:

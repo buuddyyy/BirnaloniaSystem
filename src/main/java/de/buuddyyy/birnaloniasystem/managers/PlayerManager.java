@@ -8,6 +8,7 @@ import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
 import de.buuddyyy.birnaloniasystem.sql.DatabaseManager;
 import de.buuddyyy.birnaloniasystem.sql.entities.ChestLockEntity;
 import de.buuddyyy.birnaloniasystem.sql.entities.PlayerEntity;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -18,7 +19,9 @@ public class PlayerManager {
 
     public static final String TABLE_NAME = "players";
 
+    @Getter
     private final LoadingCache<UUID, PlayerEntity> playerEntities;
+
     private final BirnaloniaSystemPlugin plugin;
     private final DatabaseManager databaseManager;
 

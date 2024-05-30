@@ -5,7 +5,8 @@ import de.buuddyyy.birnaloniasystem.config.MainConfig;
 import de.buuddyyy.birnaloniasystem.events.*;
 import de.buuddyyy.birnaloniasystem.handlers.ChestLockHandler;
 import de.buuddyyy.birnaloniasystem.handlers.PlayerHandler;
-import de.buuddyyy.birnaloniasystem.managers.HomeManager;
+import de.buuddyyy.birnaloniasystem.handlers.SkipNightHandler;
+import de.buuddyyy.birnaloniasystem.handlers.TeleportHandler;
 import de.buuddyyy.birnaloniasystem.sql.DatabaseManager;
 import lombok.Getter;
 import org.bukkit.ChatColor;
@@ -23,7 +24,8 @@ public final class BirnaloniaSystemPlugin extends JavaPlugin {
     private DatabaseManager databaseManager;
     private PlayerHandler playerHandler;
     private ChestLockHandler chestLockHandler;
-    private HomeManager homeManager;
+    private TeleportHandler teleportHandler;
+    private SkipNightHandler skipNightHandler;
 
     @Override
     public void onEnable() {
@@ -35,15 +37,20 @@ public final class BirnaloniaSystemPlugin extends JavaPlugin {
 
         this.playerHandler = new PlayerHandler(this);
         this.chestLockHandler = new ChestLockHandler(this);
-        this.homeManager = new HomeManager(this, this.databaseManager);
+        this.teleportHandler = new TeleportHandler(this);
+        this.skipNightHandler = new SkipNightHandler(this);
 
         final PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new BlockBreakListener(this), this);
+        pm.registerEvents(new BlockExplodeListener(this), this);
         pm.registerEvents(new BlockPlaceListener(this), this);
+        pm.registerEvents(new EntityExplodeListener(this), this);
         pm.registerEvents(new FoodLevelChangeListener(this), this);
-        pm.registerEvents(new InventoryOpenListener(this), this);
+        pm.registerEvents(new PlayerBedEnterListener(this), this);
+        pm.registerEvents(new PlayerBedLeaveListener(this), this);
         pm.registerEvents(new PlayerInteractListener(this), this);
         pm.registerEvents(new PlayerJoinListener(this), this);
+        pm.registerEvents(new PlayerMoveListener(this), this);
         pm.registerEvents(new PlayerQuitListener(this), this);
         this.getCommand("chestlock").setExecutor(new ChestLockCommand(this));
         this.getCommand("enderchest").setExecutor(new EnderChestCommand());
@@ -51,6 +58,8 @@ public final class BirnaloniaSystemPlugin extends JavaPlugin {
         this.getCommand("sethome").setExecutor(new SetHomeCommand(this));
         this.getCommand("setspawn").setExecutor(new SetSpawnCommand(this));
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
+        this.getCommand("tpaccept").setExecutor(new TpacceptCommand(this));
+        this.getCommand("tpa").setExecutor(new TpaCommand(this));
     }
 
     @Override

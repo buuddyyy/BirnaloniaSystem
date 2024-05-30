@@ -2,6 +2,7 @@ package de.buuddyyy.birnaloniasystem.config;
 
 import com.google.common.collect.Maps;
 import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,7 +14,7 @@ public final class MainConfig {
 
     private final BirnaloniaSystemPlugin plugin;
     private final File file;
-    private final FileConfiguration configuration;
+    @Getter private final FileConfiguration configuration;
 
     private String tabListHeader, tabListFooter, chatFormat;
     private int teleportCooldown;
@@ -35,6 +36,7 @@ public final class MainConfig {
         defaultsMap.put("general.prefix", "&7[&4Birnalonia&7] &7");
         defaultsMap.put("general.tablist.header", "&c&lBirnalonia");
         defaultsMap.put("general.tablist.footer", "&7Wir haben spaß!");
+        defaultsMap.put("teleport-delay", 3);
         defaultsMap.put("sql.driverClass", "com.mysql.jdbc.Driver");
         defaultsMap.put("sql.url", "jdbc:mysql://localhost:3306/yourdatabase");
         defaultsMap.put("sql.username", "yourusername");

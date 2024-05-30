@@ -3,7 +3,7 @@ package de.buuddyyy.birnaloniasystem.sql.entities;
 import de.buuddyyy.birnaloniasystem.managers.PlayerManager;
 import de.buuddyyy.birnaloniasystem.sql.converters.UUIDConverter;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -15,11 +15,18 @@ public final class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true, columnDefinition = "CHAR(36)")
     @Convert(converter = UUIDConverter.class)
     private UUID playerUuid;
+
+    @Setter
     private String playerName;
+
+    @Setter
     private Timestamp lastOnline;
+
+    @Setter
     private boolean chestLockActive;
 
     public PlayerEntity(UUID playerUuid, String playerName) {
@@ -43,24 +50,12 @@ public final class PlayerEntity {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public Timestamp getLastOnline() {
         return lastOnline;
     }
 
-    public void setLastOnline(Timestamp lastOnline) {
-        this.lastOnline = lastOnline;
-    }
-
     public boolean isChestLockActive() {
         return chestLockActive;
-    }
-
-    public void setChestLockActive(boolean chestLockActive) {
-        this.chestLockActive = chestLockActive;
     }
 
 }

@@ -8,6 +8,7 @@ import de.buuddyyy.birnaloniasystem.BirnaloniaSystemPlugin;
 import de.buuddyyy.birnaloniasystem.sql.DatabaseManager;
 import de.buuddyyy.birnaloniasystem.sql.entities.HomeEntity;
 import de.buuddyyy.birnaloniasystem.sql.entities.PlayerEntity;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ public class HomeManager {
 
     public static final String TABLE_NAME = "homes";
 
-    private final LoadingCache<UUID, HashMap<String, HomeEntity>> playerHomes;
+    @Getter private final LoadingCache<UUID, HashMap<String, HomeEntity>> playerHomes;
     private final BirnaloniaSystemPlugin plugin;
     private final DatabaseManager databaseManager;
 
