@@ -73,7 +73,13 @@ public class ChestLockHandler {
         if (!this.chestLockManager.chestLockExists(loc))
             return;
         final ChestLockEntity cle = this.chestLockManager.getChestLockEntity(loc);
-        if (!cle.getOwnerPlayerEntity().getPlayerUuid().equals(p.getUniqueId())) {
+        if (p.isOp() && p.getGameMode() == GameMode.CREATIVE) {
+            this.chestLockManager.deleteChestLock(cle);
+            p.sendMessage(this.plugin.getPrefix() + "§cBlock wurde entsichert.");
+            return;
+        }
+        if (!cle.getOwnerPlayerEntity().getPlayerUuid().equals(p.getUniqueId())
+                || !(p.isOp() && p.getGameMode() == GameMode.CREATIVE)) {
             event.setCancelled(true);
             p.sendMessage(this.plugin.getPrefix() + "§cDir gehört dieser Block nicht.");
             return;

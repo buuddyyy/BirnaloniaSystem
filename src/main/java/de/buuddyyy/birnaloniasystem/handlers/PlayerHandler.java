@@ -30,6 +30,7 @@ public class PlayerHandler {
             return;
         }
         final PlayerEntity pe = playerManager.getPlayerEntity(player);
+        this.plugin.getTeleportHandler().getHomeNames(player);
         if (player.getName().equals(pe.getPlayerName())) {
             return;
         }

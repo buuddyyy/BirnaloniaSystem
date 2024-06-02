@@ -118,6 +118,10 @@ public final class TeleportHandler {
         return this.homeManager.getHomes(player.getUniqueId()).containsKey(homeName);
     }
 
+    public List<String> getHomeNames(Player player) {
+        return new ArrayList<>(this.homeManager.getHomes(player.getUniqueId()).keySet());
+    }
+
     public void setSpawnLocation(Location location) {
         this.spawnLocation = location;
         final MainConfig config = this.plugin.getMainConfig();

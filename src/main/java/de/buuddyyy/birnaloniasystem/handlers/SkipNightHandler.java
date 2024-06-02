@@ -105,13 +105,13 @@ public class SkipNightHandler {
             }
             world.getPlayers().forEach(pAll -> pAll.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                     new TextComponent("§aDie Nacht wird übersprungen...")));
-        } else {
-            if (!PLAYERS_SLEEPING_RUNNABLES.containsKey(world)) {
-                return;
-            }
-            PLAYERS_SLEEPING_RUNNABLES.get(world).cancel();
-            PLAYERS_SLEEPING_RUNNABLES.remove(world);
+            return;
         }
+        if (!PLAYERS_SLEEPING_RUNNABLES.containsKey(world)) {
+            return;
+        }
+        PLAYERS_SLEEPING_RUNNABLES.get(world).cancel();
+        PLAYERS_SLEEPING_RUNNABLES.remove(world);
     }
 
     private boolean isNight(World world) {

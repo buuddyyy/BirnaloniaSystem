@@ -10,6 +10,9 @@ import de.buuddyyy.birnaloniasystem.handlers.TeleportHandler;
 import de.buuddyyy.birnaloniasystem.sql.DatabaseManager;
 import lombok.Getter;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,9 +55,10 @@ public final class BirnaloniaSystemPlugin extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(this), this);
         pm.registerEvents(new PlayerMoveListener(this), this);
         pm.registerEvents(new PlayerQuitListener(this), this);
-        this.getCommand("chestlock").setExecutor(new ChestLockCommand(this));
+
+        this.registerCommand("chestlock", new ChestLockCommand(this));
         this.getCommand("enderchest").setExecutor(new EnderChestCommand());
-        this.getCommand("home").setExecutor(new HomeCommand(this));
+        this.registerCommand("home", new HomeCommand(this));
         this.getCommand("sethome").setExecutor(new SetHomeCommand(this));
         this.getCommand("setspawn").setExecutor(new SetSpawnCommand(this));
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
@@ -73,6 +77,14 @@ public final class BirnaloniaSystemPlugin extends JavaPlugin {
 
     public void setPrefix(String prefix) {
         this.prefix = ChatColor.translateAlternateColorCodes('&', prefix);
+    }
+
+    private void registerCommand(String command, CommandExecutor commandExecutor) {
+        final PluginCommand pc = this.getCommand(command);
+        pc.setExecutor(commandExecutor);
+        if (commandExecutor instanceof TabCompleter) {
+            pc.setTabCompleter((TabCompleter) commandExecutor);
+        }
     }
 
 }

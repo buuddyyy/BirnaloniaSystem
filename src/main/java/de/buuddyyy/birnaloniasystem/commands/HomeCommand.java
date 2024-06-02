@@ -44,7 +44,12 @@ public class HomeCommand implements CommandExecutor, TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return new ArrayList<>();
+        if (!(commandSender instanceof Player)) {
+            return new ArrayList<>();
+        }
+        final Player p = (Player) commandSender;
+        final TeleportHandler tph = this.plugin.getTeleportHandler();
+        return tph.getHomeNames(p);
     }
 
 }
